@@ -1,0 +1,27 @@
+{
+  "name": "piek",
+  "version": "0.0.1",
+  "description": "Peek into files from the command line.",
+  "main": "lib/index.js",
+  "repository": "https://github.com/lukasbach/piek",
+  "author": "Lukas Bach",
+  "license": "MIT",
+  "dependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/ink": "^2.0.3",
+    "@types/node": "^12.12.12",
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "fs-extra": "^8.1.0",
+    "ink": "^2.5.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "start": "ts-node ./src/index.tsx package.json"
+  }
+}
