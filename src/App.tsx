@@ -7,14 +7,24 @@ export const App: React.FC<{}> = props => {
     const [_, p, fileName] = process.argv;
     const cwd = process.cwd();
     const [content, setContent] = React.useState('');
+    const filePath = path.join(cwd, fileName || '');
+
+    if (!fileName) {
+        return <>You must specify a filename relative to your current path to open it.</>;
+    }
+
+    if (!fs.existsSync(filePath)) {
+        return <>The file that you specified does not exist.</>;
+    }
+
     React.useEffect(() => {
         (async () => {
-            const c = await fs.readFile(path.join(cwd, fileName), {encoding: 'utf-8'});
+            const c = await fs.readFile(filePath, {encoding: 'utf-8'});
             setContent(c);
         })();
     }, []);
 
     return (
-        <Editor fileContent={content} linesShown={10} />
+        <Editor fileContent={content} fileName={filePath} />
     );
 };

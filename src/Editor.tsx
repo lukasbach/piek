@@ -1,45 +1,58 @@
 import * as React from "react";
-import { Box, Color, useInput, AppContext } from "ink";
+import {Box, Color, useInput, AppContext, Text} from "ink";
 
 export const Editor: React.FC<{
-    fileContent: string,
-    linesShown: number,
+  fileContent: string,
+  fileName: string,
 }> = props => {
-	const {exit} = React.useContext(AppContext);
-    const [startingLine, setStartingLine] = React.useState(0);
-    const lines = props.fileContent.split('\n').slice(startingLine, startingLine + props.linesShown);
-    const totalLines = props.fileContent.split('\n').length;
+  const {exit} = React.useContext(AppContext);
 
-    useInput((input, key) => {
-        // console.log("!!")
-		if (input === 'q') {
-			exit();
-		}
-        setStartingLine(startingLine + 1);
-        // if (key.downArrow) {
-        //    setStartingLine(startingLine + props.linesShown + 1 > totalLines - 1 ? startingLine : startingLine + 1);
-        // } else if (key.upArrow) {
-        //     setStartingLine(startingLine - 1 < 0 ? startingLine : startingLine - 1);
-        // }
-    })
+  const [startingLine, setStartingLine] = React.useState(0);
+  const [linesShown, setLinesShown] = React.useState(10);
 
-    return (
-        <>
-        "{startingLine}"
-            {
-                lines.map((line, no) => (
-                    <Box width="100%" key={no}>
-                        <Box>
-                            <Color grey>
-                                { no }:{'  '}
-                            </Color>
-                        </Box>
-                        <Box flexGrow={1}>
-                            { line }
-                        </Box>
-                    </Box>
-                ))
-            }
-        </>
-    );
-}
+  const lines = props.fileContent.split('\n').slice(startingLine, startingLine + linesShown);
+  const totalLines = props.fileContent.split('\n').length;
+
+  useInput((input, key) => {
+    if (input === 'q' || key.return || key.escape) {
+      exit();
+    }
+
+    if (input === '[1;2B') {
+      setLinesShown(linesShown => linesShown + 1);
+    } else if (input === "[1;2A") {
+      setLinesShown(linesShown => Math.max(linesShown - 1, 1));
+    } else if (key.downArrow) {
+      setStartingLine(startingLine => Math.min(startingLine + 1, totalLines - linesShown));
+    } else if (key.upArrow) {
+      setStartingLine(startingLine => Math.max(startingLine - 1, 0));
+    }
+  });
+
+  return (
+    <>
+      <Color bgWhiteBright>
+        { props.fileName }
+        :
+        { startingLine }-{ startingLine + linesShown }/{ totalLines }
+      </Color>
+      {
+        lines.map((line, no) => (
+          <Box width="100%" key={no}>
+            <Box>
+              <Color grey>
+                { no + startingLine }:{'  '}
+              </Color>
+            </Box>
+            <Box flexGrow={1}>
+              { line }
+            </Box>
+          </Box>
+        ))
+      }
+      <Color bgWhiteBright>
+        Press [▼/▲] to scroll, press [SHIFT]+[▼/▲] to change view size.
+      </Color>
+    </>
+  );
+};

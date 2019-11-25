@@ -22,6 +22,12 @@
     "typescript": "^3.7.2"
   },
   "scripts": {
-    "start": "ts-node ./src/index.tsx package.json"
+    "start": "ts-node ./src/index.tsx package.json",
+    "build": "tsc",
+    "test": "tsc",
+    "prepublish": "tsc"
+  },
+  "bin": {
+    "piek": "./lib/index.js"
   }
 }
