@@ -10,8 +10,8 @@ export const Editor: React.FC<{
   const [startingLine, setStartingLine] = React.useState(0);
   const [linesShown, setLinesShown] = React.useState(10);
 
-  const lines = props.fileContent.split('\n').slice(startingLine, startingLine + linesShown);
   const totalLines = props.fileContent.split('\n').length;
+  const lines = props.fileContent.split('\n').slice(startingLine, Math.min( totalLines, startingLine + linesShown));
 
   useInput((input, key) => {
     if (input === 'q' || key.return || key.escape) {
@@ -23,7 +23,7 @@ export const Editor: React.FC<{
     } else if (input === "[1;2A") {
       setLinesShown(linesShown => Math.max(linesShown - 1, 1));
     } else if (key.downArrow) {
-      setStartingLine(startingLine => Math.min(startingLine + 1, totalLines - linesShown));
+      setStartingLine(startingLine => Math.min(startingLine + 1, Math.max(0, totalLines - linesShown)));
     } else if (key.upArrow) {
       setStartingLine(startingLine => Math.max(startingLine - 1, 0));
     }
@@ -34,7 +34,7 @@ export const Editor: React.FC<{
       <Color bgWhiteBright black>
         { props.fileName }
         :
-        { startingLine }-{ startingLine + linesShown }/{ totalLines }
+        { startingLine }-{ Math.min( totalLines, startingLine + linesShown) }/{ totalLines }
       </Color>
       {
         lines.map((line, no) => (
