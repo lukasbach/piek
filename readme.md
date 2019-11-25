@@ -9,7 +9,7 @@ Just run ``piek yourfile.txt`` from anywhere in your terminal to open the file.
 Use your arrow keys (up and down) to navigate from within the file. You can also
 expand/collapse the size of your view by pressing shift+up/down.
 
-![PIEK usage demo](https://raw.githubusercontent.com/lukasbach/piek/master/piek.gif "PIEK usage demo")
+![PIEK usage demo](https://raw.githubusercontent.com/lukasbach/piek/master/demo.gif "PIEK usage demo")
 
 ## Installation
 
