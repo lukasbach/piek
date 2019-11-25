@@ -31,7 +31,7 @@ export const Editor: React.FC<{
 
   return (
     <>
-      <Color bgWhiteBright>
+      <Color bgWhiteBright black>
         { props.fileName }
         :
         { startingLine }-{ startingLine + linesShown }/{ totalLines }
@@ -50,7 +50,7 @@ export const Editor: React.FC<{
           </Box>
         ))
       }
-      <Color bgWhiteBright>
+      <Color bgWhiteBright black>
         Press [▼/▲] to scroll, press [SHIFT]+[▼/▲] to change view size.
       </Color>
     </>
