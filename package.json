@@ -1,6 +1,6 @@
 {
   "name": "piek",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Peek into files from the command line.",
   "main": "lib/index.js",
   "repository": "https://github.com/lukasbach/piek",
