@@ -1,13 +1,20 @@
 {
   "name": "piek",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Peek into files from the command line.",
   "main": "lib/index.js",
   "repository": "https://github.com/lukasbach/piek",
   "author": "Lukas Bach",
   "license": "MIT",
   "keywords": [
-    "peek", "filesystem", "files", "util", "cli", "content", "text", "search"
+    "peek",
+    "filesystem",
+    "files",
+    "util",
+    "cli",
+    "content",
+    "text",
+    "search"
   ],
   "dependencies": {
     "@types/fs-extra": "^8.0.1",
